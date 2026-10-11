@@ -5,7 +5,8 @@
 <p align="center">
   <strong>Synthetic retinal OCT figure authoring.</strong><br>
   Generate synthetic OCT B-scans from a parametric retinal model, then annotate, measure, compose and export them as figures for teaching and scientific-style illustration. OCTForge runs on your own computer.
-  **Scientific limitations:** OCTForge generates synthetic OCT images for educational illustration and clinical case preparation. Its mathematical foundations draw on published research, but individual pathological models and presets have not all been independently validated by an ophthalmologist. Generated images are approximations, not clinical acquisitions, and must not be used for diagnosis or patient management. Further documentation and expert review are planned for future releases.
+  
+   <strong>Scientific limitations:</strong><br> OCTForge generates synthetic OCT images for educational illustration and clinical case preparation. Its mathematical foundations draw on published research, but individual pathological models and presets have not all been independently validated by an ophthalmologist. Generated images are approximations, not clinical acquisitions, and must not be used for diagnosis or patient management. Further documentation and expert review are planned for future releases.
 </p>
 
 <p align="center">
