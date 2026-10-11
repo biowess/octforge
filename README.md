@@ -519,7 +519,7 @@ These are general references for the concepts the model builds on. They are not 
 
 ## License
 
-CC-BY-NC 4.0
+CC-BY-NC-ND 4.0
 
 ---
 
