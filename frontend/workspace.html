@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Fonts: Outfit -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#F4F7F9">
+  <title>OCTForge - Workspace</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+</head>
+<body>
+
+  <!-- ── Row 1: Application Bar ─────────────────────────────────────────── -->
+  <header id="topbar" role="banner">
+    <a class="brand" href="index.html" aria-label="OCTForge home" title="Back to home">
+  <img src="assets/icon.png" class="icon brand-mark" alt="">
+</a>
+
+    <div class="topbar-divider"></div>
+
+    <!-- Scene / project name -->
+    <div class="study-field">
+      <span class="study-label" aria-hidden="true">Scene</span>
+      <input
+        id="project-name"
+        class="project-name"
+        type="text"
+        value="Untitled Scene"
+        title="Scene / Project Name"
+        autocomplete="off"
+        spellcheck="false"
+      >
+    </div>
+
+    <div class="topbar-divider"></div>
+
+    <!-- Undo / Redo -->
+    <div class="topbar-group" role="group" aria-label="History">
+      <button id="btn-undo" class="btn-icon" title="Undo (Ctrl+Z)" disabled>
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#undo-2"></use></svg>
+        <span class="visually-hidden">Undo</span>
+      </button>
+      <button id="btn-redo" class="btn-icon" title="Redo (Ctrl+Y)" disabled>
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#redo-2"></use></svg>
+        <span class="visually-hidden">Redo</span>
+      </button>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+        <!-- Save -->
+    <button id="btn-save-project" class="btn-secondary" title="Save Project (JSON)">
+      <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#save"></use></svg>
+      Save
+    </button>
+
+    <div class="topbar-divider"></div>
+
+    <!-- Help Menu -->
+    <div class="help-menu">
+      <button id="btn-help-menu" class="btn-secondary" aria-haspopup="true" aria-expanded="false" title="Help">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#book-open"></use></svg>
+        Help
+      </button>
+      <div id="help-popover" class="help-popover" role="menu" hidden>
+        <a href="docs.html" target="_blank" rel="noopener" role="menuitem">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#book-open"></use></svg>
+          Documentation
+        </a>
+        <a href="about.html" target="_blank" rel="noopener" role="menuitem">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#info"></use></svg>
+          About
+        </a>
+        <a href="privacy.html" target="_blank" rel="noopener" role="menuitem">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#shield-check"></use></svg>
+          Privacy
+        </a>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- ── Row 2: Primary Workspace Navigation ─────────────────────────────── -->
+  <nav id="workspace-nav" role="tablist" aria-label="Workspaces">
+    <button class="ws-tab active" data-workspace="generator" role="tab" aria-selected="true" aria-controls="settings-rail" tabindex="0">
+      <svg class="icon tab-icon" aria-hidden="true"><use href="assets/icons.svg#sliders-horizontal"></use></svg>
+      <span>Generator</span>
+    </button>
+    <button class="ws-tab" data-workspace="visualization" role="tab" aria-selected="false" aria-controls="settings-rail" tabindex="-1">
+      <svg class="icon tab-icon" aria-hidden="true"><use href="assets/icons.svg#eye"></use></svg>
+      <span>Visualize</span>
+    </button>
+    <button class="ws-tab" data-workspace="annotation" role="tab" aria-selected="false" aria-controls="settings-rail" tabindex="-1">
+      <svg class="icon tab-icon" aria-hidden="true"><use href="assets/icons.svg#pencil-line"></use></svg>
+      <span>Annotate</span>
+    </button>
+    <button class="ws-tab" data-workspace="export" role="tab" aria-selected="false" aria-controls="settings-rail" tabindex="-1">
+      <svg class="icon tab-icon" aria-hidden="true"><use href="assets/icons.svg#download"></use></svg>
+      <span>Export</span>
+    </button>
+    <button class="ws-tab" data-workspace="projects" role="tab" aria-selected="false" aria-controls="settings-rail" tabindex="-1">
+      <svg class="icon tab-icon" aria-hidden="true"><use href="assets/icons.svg#folder-open"></use></svg>
+      <span>Projects</span>
+    </button>
+    <div class="ws-nav-fill"></div>
+  </nav>
+
+  <!-- ── Row 3: Workspace Toolbar ────────────────────────────────────────── -->
+  <div id="workspace-toolbar" role="toolbar" aria-label="Workspace toolbar">
+
+    <!-- LEFT: contextual by workspace -->
+    <div id="wtb-generator" class="wtb-context" aria-label="Generator actions">
+      <!-- Render Final -->
+      <button id="btn-render-final" class="btn-secondary btn-render" title="Render full-quality B-scan with ground truth">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#scan"></use></svg>
+        <span class="btn-label">Render final</span>
+      </button>
+
+      <div class="wtb-sep"></div>
+
+      <!-- Seed & Randomize -->
+      <span class="wtb-label">Seed</span>
+      <input id="seed-input" type="number" min="0" max="2147483647" value="42" title="Render seed — determines all stochastic elements">
+      <button id="btn-randomize" class="btn-secondary" title="Randomize scene within physiological bounds">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#shuffle"></use></svg>
+        <span class="btn-label">Randomize</span>
+      </button>
+    </div>
+
+    <!-- Annotation tool palette — visible only in Annotate workspace -->
+    <div id="wtb-annotate" class="wtb-context" aria-label="Annotation tools" hidden>
+      <button class="btn-tool active" data-tool="select" title="Select &amp; Move (V)">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#mouse-pointer-2"></use></svg>Select
+      </button>
+      <button class="btn-tool" data-tool="text" title="Text Label (T)">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#type"></use></svg>Text
+      </button>
+      <button class="btn-tool" data-tool="arrow" title="Pointer Arrow (A)">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-up-right"></use></svg>Arrow
+      </button>
+      <button class="btn-tool" data-tool="leader_line" title="Leader Line (L)">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#minus"></use></svg>Leader
+      </button>
+      <button class="btn-tool" data-tool="dot" title="Landmark Dot (D)">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#disc"></use></svg>Dot
+      </button>
+      <button class="btn-tool" data-tool="numbered_marker" title="Numbered Badge (N)">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#disc"></use></svg>Badge
+      </button>
+      <button class="btn-tool" data-tool="bracket" title="Layer / Lesion Bracket (B)">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#brackets"></use></svg>Bracket
+      </button>
+      <button class="btn-tool" data-tool="reference_line" title="Reference Line (R)">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#minus"></use></svg>Ref line
+      </button>
+      <button class="btn-tool" data-tool="caliper" title="Point-to-Point Caliper (M)">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#ruler"></use></svg>Caliper
+      </button>
+
+      <div class="wtb-sep"></div>
+
+      <!-- Color & Stroke -->
+      <input type="color" id="tool-color-picker" value="#FFEB3B" title="Active Annotation Color">
+      <label class="wtb-num-label" title="Stroke width">
+        W <input type="number" id="tool-stroke-width" min="1" max="8" value="2">
+      </label>
+
+      <div class="wtb-sep"></div>
+
+      <button class="btn-tool-action" id="btn-quick-autolabel" title="Automatically label anatomical layers based on segmentation ground truth">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#tag"></use></svg>Auto-label
+      </button>
+      <button class="btn-tool-action btn-danger-tool" id="btn-delete-selected" title="Delete selected annotation item (Del)">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#trash-2"></use></svg>Delete
+      </button>
+    </div>
+
+    <!-- Visualize: display settings live in the left panel; the toolbar keeps its height -->
+    <div id="wtb-visualize" class="wtb-context" aria-label="Visualize actions" hidden></div>
+
+    <!-- Export: the primary action is always one click away -->
+    <div id="wtb-export" class="wtb-context" aria-label="Export actions" hidden>
+      <button id="btn-export-toolbar" class="btn-primary" title="Export the current figure with the settings in the Export panel">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#download"></use></svg>
+        <span class="btn-label">Export figure</span>
+      </button>
+    </div>
+
+    <!-- RIGHT: persistent view controls -->
+    <div class="wtb-right">
+      <!-- View Switcher -->
+      <div class="view-switcher" role="group" aria-label="View mode">
+        <button id="view-btn-bscan" class="active" title="Switch to single B-scan view">Single scan</button>
+        <button id="view-btn-composition" title="Switch to composed figure view">Composed figure</button>
+      </div>
+
+      <div class="wtb-sep"></div>
+
+      <!-- Overlay Visibility Toggles -->
+      <label class="toolbar-toggle" title="Toggle annotation overlay visibility">
+        <input type="checkbox" id="toggle-show-annotations" checked>
+        <span>Labels</span>
+      </label>
+      <label class="toolbar-toggle" title="Toggle measurement calipers visibility">
+        <input type="checkbox" id="toggle-show-measurements" checked>
+        <span>Calipers</span>
+      </label>
+      <label class="toolbar-toggle" title="Toggle calibrated scale bars">
+        <input type="checkbox" id="toggle-show-scalebars" checked>
+        <span>Scale bar</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ── Three-Zone Workspace ─────────────────────────────────────────────── -->
+  <div id="workspace">
+
+    <!-- ── Left Properties Panel ─────────────────────────────────────────── -->
+    <aside id="settings-rail" role="complementary" aria-label="Workspace panel">
+
+      <!-- Section tab bar (shown when workspace has >1 section) -->
+      <nav id="section-tabbar" class="section-tabbar" role="tablist" aria-label="Sections" hidden>
+        <!-- Populated by JS per workspace -->
+      </nav>
+
+      <!-- ── TAB PANE 1: Generator ──────────────────────────────────────── -->
+      <div class="tab-pane active" id="pane-generator" role="tabpanel">
+        <div class="rail-header">
+          <span class="rail-heading">Scene controls</span>
+          <div class="mode-toggle" role="group" aria-label="Detail mode">
+            <button id="mode-basic" class="active" data-mode="basic" title="Show most-used controls">Basic</button>
+            <button id="mode-advanced" data-mode="advanced" title="Show all controls">Advanced</button>
+          </div>
+        </div>
+
+        <div class="rail-panels" id="rail-panels">
+          <!-- Anatomy panel -->
+          <section class="panel" id="panel-anatomy" aria-label="Anatomy">
+            <div class="panel-header" role="button" tabindex="0" aria-expanded="true" aria-controls="panel-anatomy-body">
+              <span class="panel-title">Anatomy</span>
+              <span class="panel-chevron" aria-hidden="true"><svg class="icon"><use href="assets/icons.svg#chevron-down"></use></svg></span>
+            </div>
+            <div class="panel-body" id="panel-anatomy-body"></div>
+          </section>
+
+          <!-- Pathology panel -->
+          <section class="panel" id="panel-pathology" aria-label="Pathology">
+            <div class="panel-header" role="button" tabindex="0" aria-expanded="true" aria-controls="panel-pathology-body">
+              <span class="panel-title">Pathology</span>
+              <span class="panel-chevron" aria-hidden="true"><svg class="icon"><use href="assets/icons.svg#chevron-down"></use></svg></span>
+            </div>
+            <div class="panel-body" id="panel-pathology-body"></div>
+          </section>
+
+          <!-- Acquisition panel -->
+          <section class="panel" id="panel-acquisition" aria-label="Acquisition">
+            <div class="panel-header" role="button" tabindex="0" aria-expanded="true" aria-controls="panel-acquisition-body">
+              <span class="panel-title">Acquisition</span>
+              <span class="panel-chevron" aria-hidden="true"><svg class="icon"><use href="assets/icons.svg#chevron-down"></use></svg></span>
+            </div>
+            <div class="panel-body" id="panel-acquisition-body"></div>
+          </section>
+
+          <!-- Realism panel -->
+          <section class="panel" id="panel-realism" aria-label="Realism">
+            <div class="panel-header" role="button" tabindex="0" aria-expanded="true" aria-controls="panel-realism-body">
+              <span class="panel-title">Realism</span>
+              <span class="panel-chevron" aria-hidden="true"><svg class="icon"><use href="assets/icons.svg#chevron-down"></use></svg></span>
+            </div>
+            <div class="panel-body" id="panel-realism-body"></div>
+          </section>
+
+          <!-- Artifacts panel -->
+          <section class="panel" id="panel-artifacts" aria-label="Artifacts">
+            <div class="panel-header" role="button" tabindex="0" aria-expanded="false" aria-controls="panel-artifacts-body">
+              <span class="panel-title">Artifacts</span>
+              <span class="panel-chevron" aria-hidden="true"><svg class="icon"><use href="assets/icons.svg#chevron-down"></use></svg></span>
+            </div>
+            <div class="panel-body" id="panel-artifacts-body"></div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ── TAB PANE 2: Visualization ────────────────────────────────────── -->
+      <div class="tab-pane" id="pane-visualization" role="tabpanel">
+        <div class="pane-body" id="visualization-body">
+          <!-- Populated dynamically by visualization.js -->
+        </div>
+      </div>
+
+      <!-- ── TAB PANE 3: Annotation ─────────────────────────────────────── -->
+      <div class="tab-pane" id="pane-annotation" role="tabpanel">
+        <div class="pane-body" id="annotation-body">
+          <!-- Populated dynamically by annotation.js -->
+        </div>
+      </div>
+
+      <!-- ── TAB PANE 4: Measurement ────────────────────────────────────── -->
+      <div class="tab-pane" id="pane-measurement" role="tabpanel">
+        <div class="pane-body" id="measurement-body">
+          <!-- Populated dynamically by measurement.js -->
+        </div>
+      </div>
+
+      <!-- ── TAB PANE 5: Composition ────────────────────────────────────── -->
+      <div class="tab-pane" id="pane-composition" role="tabpanel">
+        <div class="pane-body" id="composition-body">
+          <!-- Populated dynamically by composition.js -->
+        </div>
+      </div>
+
+      <!-- ── TAB PANE 6: Presets ────────────────────────────────────────── -->
+      <div class="tab-pane" id="pane-presets" role="tabpanel">
+        <div class="pane-body" id="presets-body">
+          <!-- Populated dynamically by presets.js -->
+        </div>
+      </div>
+
+      <!-- ── TAB PANE 7: Projects (own workspace tab) ─────────────────────── -->
+      <div class="tab-pane" id="pane-projects" role="tabpanel">
+        <div class="pane-body" id="projects-body">
+          <!-- Populated dynamically by projects.js -->
+        </div>
+      </div>
+
+      <!-- ── TAB PANE 8: Export ─────────────────────────────────────────── -->
+      <div class="tab-pane" id="pane-export" role="tabpanel">
+        <div class="pane-body" id="export-body">
+          <!-- Populated dynamically by export.js -->
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── Center Preview Canvas Zone ─────────────────────────────────────── -->
+    <main id="canvas-zone" role="main" aria-label="OCT preview canvas">
+
+      <!-- Canvas toolbar (zoom, dims, mode badge) -->
+      <div id="canvas-toolbar" role="toolbar" aria-label="Canvas controls">
+        <span class="toolbar-label" id="canvas-mode-badge">B-scan</span>
+        <div class="canvas-toolbar-sep"></div>
+
+        <!-- Zoom controls -->
+        <button class="btn-zoom" id="btn-zoom-in" title="Zoom in (+)"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#zoom-in"></use></svg></button>
+        <button class="btn-zoom" id="btn-zoom-out" title="Zoom out (-)"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#zoom-out"></use></svg></button>
+        <button class="btn-zoom" id="btn-zoom-fit" title="Fit to view (F)"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#maximize"></use></svg></button>
+        <button class="btn-zoom" id="btn-zoom-100" title="100% zoom (1)">1:1</button>
+        <span id="zoom-level-display" aria-live="polite">100%</span>
+
+        <div class="canvas-toolbar-sep"></div>
+        <span class="toolbar-label" id="canvas-dims-display" aria-live="polite">512×512 px</span>
+      </div>
+
+      <!-- Rendering indicator overlay -->
+      <div id="render-indicator" role="status" aria-live="polite" aria-label="Rendering in progress">
+        <div class="render-pulse" aria-hidden="true"></div>
+        Rendering…
+      </div>
+
+      <!-- Single B-scan Pan / zoom viewport -->
+      <div id="preview-viewport" class="empty" tabindex="0" aria-label="OCT image — drag to pan, scroll to zoom">
+        <div id="preview-transform">
+          <img id="bscan-img" alt="Synthetic OCT B-scan preview" src="" width="512" height="512">
+          <!-- Interactive overlay canvas directly atop the image -->
+          <canvas id="annotation-overlay-canvas" width="512" height="512"></canvas>
+        </div>
+      </div>
+
+      <!-- Composed Figure Viewport (shown when View Mode is Composed) -->
+      <div id="composed-viewport" class="empty" style="display:none" tabindex="0" aria-label="Composed figure preview">
+        <div id="composed-transform">
+          <img id="composed-img" alt="Composed multi-panel figure" src="">
+        </div>
+      </div>
+
+      <!-- Empty state shown until first render -->
+      <div id="preview-empty" aria-hidden="true">
+        <div class="preview-empty-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#scan"></use></svg></div>
+        <div class="preview-empty-text">Awaiting first render</div>
+      </div>
+
+    </main>
+
+  </div><!-- /workspace -->
+
+  <!-- ── Status Bar ─────────────────────────────────────────────────────── -->
+  <footer id="statusbar" role="contentinfo">
+    <div class="status-item">
+      <span class="status-k">Latency</span>
+      <span class="status-val accent" id="val-latency">—</span>
+    </div>
+    <div class="status-item">
+      <span class="status-k">Cache</span>
+      <span class="status-val" id="val-cache">—</span>
+    </div>
+    <div class="status-item">
+      <span class="status-k">Render ID</span>
+      <span class="status-val font-mono" id="val-render-id">—</span>
+    </div>
+    <div class="status-item">
+      <span class="status-k">Tool</span>
+      <span class="status-val" id="val-active-tool">Select</span>
+    </div>
+    <div class="status-item">
+      <span class="status-k">Annotations</span>
+      <span class="status-val" id="val-annot-count">0</span>
+    </div>
+    <div class="status-item">
+      <span class="status-k">Size</span>
+      <span class="status-val" id="val-image-size">—</span>
+    </div>
+    <div class="status-item">
+      <span class="status-k">Undo depth</span>
+      <span class="status-val" id="val-undo-depth">0</span>
+    </div>
+    <div class="statusbar-spacer"></div>
+    <div id="of-status-notify" class="status-notify-inline" aria-live="polite"></div>
+    <div class="status-item" id="status-backend-item">
+      <span class="status-k">Backend</span>
+      <span class="status-val" id="val-backend-status">connecting…</span>
+    </div>
+  </footer>
+
+  <!-- ── Scripts (ordered) ─────────────────────────────────────────────── -->
+  <script src="js/api.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/dialogs.js"></script>
+  <script src="js/controls.js"></script>
+  <script src="js/generator.js"></script>
+  <script src="js/preview.js"></script>
+  <script src="js/visualization.js"></script>
+  <script src="js/annotation.js"></script>
+  <script src="js/measurement.js"></script>
+  <script src="js/composition.js"></script>
+  <script src="js/presets.js"></script>
+  <script src="js/projects.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/main.js"></script>
+
+  <script src="js/help-menu.js"></script>
+</body>
+</html>

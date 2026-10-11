@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Fonts: Outfit -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FFFFFF">
+  <title>About — OCTForge</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="icon" type="image/svg+xml" href="assets/icon.png">
+</head>
+<body class="page-body">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="page-header" role="banner">
+    <a href="index.html" class="page-brand" aria-label="OCTForge start page">
+  <img src="assets/icon.png" alt="" class="icon">
+</a>
+    <span class="page-header-sep" aria-hidden="true"></span>
+    <span class="page-header-title">About</span>
+    <nav class="page-nav" aria-label="Information">
+      <a href="docs.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#book-open"/></svg><span>Documentation</span></a>
+      <a href="about.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#info"/></svg><span>About</span></a>
+      <a href="privacy.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#shield-check"/></svg><span>Privacy</span></a>
+      <span class="page-nav-sep" aria-hidden="true"></span>
+      <a href="workspace.html" class="btn-primary"><span>Open workspace</span><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-up-right"/></svg></a>
+    </nav>
+  </header>
+
+  <div class="page-layout">
+    <nav class="page-toc" aria-label="On this page">
+      <div class="page-toc-title">On this page</div>
+      <a href="#what-it-is">What OCTForge is</a>
+      <a href="#at-a-glance">At a glance</a>
+      <a href="#renderer">How the renderer works</a>
+      <a href="#technology">Technology</a>
+      <a href="#intended-use">Intended use and limits</a>
+    </nav>
+
+    <main id="main" class="page-content">
+      <article class="page-article">
+        <h1>About OCTForge</h1>
+        <p class="lead">A figure-authoring tool that generates synthetic retinal OCT B-scans for teaching, lecture decks, course materials and scientific-style illustration.</p>
+        <p class="meta">Version 1.0.0 · Local-first · No account required</p>
+
+        <div class="callout callout-important">
+          <strong class="callout-title">Every image is synthetic</strong>
+          Every image OCTForge produces is <strong>synthetic</strong>. It is procedurally generated from a parametric forward model. It is not derived from, and does not represent, any real patient. OCTForge is <strong>not a diagnostic device</strong> and has not been validated for clinical decision-making.
+        </div>
+
+        <h2 id="what-it-is">What OCTForge is</h2>
+        <p>Optical coherence tomography (OCT) is a standard imaging method in ophthalmology, but teaching cases are hard to build from real scans: they carry patient identifiers, consent constraints and inconsistent quality. OCTForge lets an educator describe a retina, add a pathology, choose an acquisition setup and produce a clean, reproducible cross-section that matches the question being taught.</p>
+        <p>A scene is fully described by its settings, and a fixed seed reproduces the same image every time. Scenes can be annotated, measured, composed into multi-panel figures, saved as projects and exported in formats suited to slides, print and the web.</p>
+
+        <h2 id="at-a-glance">At a glance</h2>
+        <dl class="def-table">
+          <div><dt>Synthetic</dt><dd>Images are generated from parameters. No real scans are imported or displayed.</dd></div>
+          <div><dt>Local</dt><dd>The renderer and your scene data stay on your machine. Your browser contacts Google Fonts to load the Outfit typeface.</dd></div>
+          <div><dt>Reproducible</dt><dd>The same scene and seed always produce the same image.</dd></div>
+        </dl>
+
+        <h2 id="renderer">How the renderer works</h2>
+        <p>The renderer is a <strong>procedurally and physically motivated approximation</strong>. It follows the general structure of how light interacts with retinal tissue. It is not a clinical-grade physical simulation, and its outputs should be read as illustrations, not measurements of a real eye.</p>
+        <ol>
+          <li><strong>Parametric anatomy.</strong> Foveal shape, boundary irregularity and per-layer thickness and reflectivity define the retina.</li>
+          <li><strong>Pathology deformation.</strong> Lesions such as cysts, fluid or drusen deform and re-reflect the anatomy.</li>
+          <li><strong>Optical forward model.</strong> Beer–Lambert attenuation and coherent, PSF-correlated speckle shape the signal.</li>
+          <li><strong>Acquisition and artifacts.</strong> Scan geometry, resolution, averaging and optional artifacts such as shadowing or motion are applied.</li>
+          <li><strong>Display mapping.</strong> Dynamic range, gamma and window level convert signal to the image you see.</li>
+        </ol>
+
+        <h2 id="technology">Technology</h2>
+        <table>
+          <tbody>
+            <tr><th scope="row">Backend</th><td>Python with FastAPI and Uvicorn, data models in Pydantic v2, numerical work in NumPy and SciPy, and image encoding in Pillow.</td></tr>
+            <tr><th scope="row">Frontend</th><td>Plain HTML, CSS and JavaScript with no framework and no build step. The interface is served by the same backend process.</td></tr>
+            <tr><th scope="row">Deployment</th><td>Local-first. OCTForge runs on <code>127.0.0.1</code> and opens in your browser. No account, sign-in or internet connection is needed to render.</td></tr>
+            <tr><th scope="row">Projects</th><td>Saved as JSON files in a <code>projects/</code> folder on the machine running OCTForge.</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="intended-use">Intended use and limits</h2>
+        <p>OCTForge is designed for <strong>medical education</strong>, teaching cases, lecture slides, course materials and scientific-style figures. It is not designed for diagnosis, triage, treatment planning or any decision about a real patient. Do not present its output as a real clinical scan.</p>
+        <div class="callout">
+          <strong class="callout-title">Built for educators</strong>
+          OCTForge exists so that teachers can show what retinal disease looks like on OCT without depending on archives of real patient scans. If you use it in teaching, label synthetic images as synthetic.
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <footer class="page-footer">
+    <span>Synthetic imagery only. Not for diagnostic use.</span>
+    <span class="page-footer-links">
+      <a href="index.html">Start</a>
+      <a href="docs.html">Documentation</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+    </span>
+  </footer>
+
+  <script src="js/pages.js"></script>
+</body>
+</html>

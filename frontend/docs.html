@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Fonts: Outfit -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#FFFFFF">
+  <title>Documentation — OCTForge</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+</head>
+<body class="page-body">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="page-header" role="banner">
+    <a href="index.html" class="page-brand" aria-label="OCTForge start page">
+  <img src="assets/icon.png" alt="" class="icon">
+</a>
+    <span class="page-header-sep" aria-hidden="true"></span>
+    <span class="page-header-title">Documentation</span>
+    <nav class="page-nav" aria-label="Information">
+      <a href="docs.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#book-open"/></svg><span>Documentation</span></a>
+      <a href="about.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#info"/></svg><span>About</span></a>
+      <a href="privacy.html"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#shield-check"/></svg><span>Privacy</span></a>
+      <span class="page-nav-sep" aria-hidden="true"></span>
+      <a href="workspace.html" class="btn-primary"><span>Open workspace</span><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#arrow-up-right"/></svg></a>
+    </nav>
+  </header>
+
+  <div class="page-layout">
+    <nav class="page-toc" aria-label="On this page">
+      <div class="page-toc-title">On this page</div>
+      <a href="#getting-started">Getting started</a>
+      <a href="#workspaces">The four workspaces</a>
+      <a href="#generator">Generator</a>
+      <a href="#visualize">Visualize</a>
+      <a href="#annotate">Annotate</a>
+      <a href="#text-boxes">Working with text boxes</a>
+      <a href="#measurements">Measurements</a>
+      <a href="#export">Export</a>
+      <a href="#shortcuts">Keyboard shortcuts</a>
+      <a href="#patient-data">Patient data</a>
+    </nav>
+
+    <main id="main" class="page-content">
+      <article class="page-article">
+        <h1>Documentation</h1>
+        <p class="lead">How to build, display, annotate and export synthetic retinal OCT scenes.</p>
+
+        <h2 id="getting-started">Getting started</h2>
+        <p>OCTForge runs on your own computer and opens in your browser. From the start page choose <strong>Open workspace</strong>. Everything you create is generated locally.</p>
+        <p>Documentation, About and Privacy are reached from the start page, or from the <strong>Help</strong> menu in the workspace. They open in a new tab, so your current scene is never lost.</p>
+
+        <h2 id="workspaces">The five workspaces</h2>
+        <p>The tabs across the top of the workspace follow the order of the work:</p>
+        <ul>
+          <li><strong>Generator</strong> defines the retina: anatomy, pathology, acquisition, realism and artifacts, plus a library of presets.</li>
+          <li><strong>Visualize</strong> chooses how the scan is displayed: grayscale or colored layers, palette and opacity.</li>
+          <li><strong>Annotate</strong> adds text boxes, arrows, markers and calipers directly on the image, and reports measurements.</li>
+          <li><strong>Export</strong> sets output format and resolution and composes multi-panel figures.</li>
+          <li><strong>Projects</strong> saves, loads, renames, duplicates, resets and deletes projects.</li>
+        </ul>
+        <p>The current tab decides which tools appear in the toolbar beneath it and which sections appear in the left panel. The status bar at the bottom shows render time, the active tool and the annotation count.</p>
+
+        <h2 id="generator">Generator</h2>
+        <p>The left panel has two sections.</p>
+        <ul>
+          <li><strong>Scene</strong> holds the parameter groups Anatomy, Pathology, Acquisition, Realism and Artifacts. The <strong>Basic / Advanced</strong> switch shows the most-used controls or all of them. A preview re-renders automatically as you change values.</li>
+          <li><strong>Presets</strong> offers a library of pathology presets (for example cystoid macular edema, drusen, macular hole and subretinal fluid), variant sets that show stages of progression, and a randomizer with a selectable scope and amplitude. A variant can be loaded as the current scene or added to the composed figure.</li>
+        </ul>
+        <p>The toolbar carries the rendering controls:</p>
+        <ul>
+          <li><strong>Render final</strong> produces the full-quality image together with its ground-truth segmentation.</li>
+          <li><strong>Seed</strong> fixes the random elements. The same scene and seed always produce the same image.</li>
+          <li><strong>Randomize</strong> draws a new scene within physiological bounds.</li>
+        </ul>
+
+        <h2 id="visualize">Visualize</h2>
+        <p>These settings change how the rendered scan is shown. They do not change the underlying image or require a new render.</p>
+        <ul>
+          <li><strong>Mode</strong> selects raw grayscale, colored anatomical layers, or a pathology-focused (hybrid) view.</li>
+          <li><strong>Palette preset</strong> selects a clinical, educational or color-blind-safe palette, or a custom one.</li>
+          <li><strong>Global opacity</strong> and the per-layer settings control the strength and color of each layer. <strong>Reset to defaults</strong> restores the standard configuration.</li>
+        </ul>
+
+        <h2 id="annotate">Annotate</h2>
+        <p>The toolbar holds the annotation tools. Choose one with the mouse or its keyboard shortcut.</p>
+        <table>
+          <thead><tr><th scope="col" class="col-key">Tool</th><th scope="col">Use</th></tr></thead>
+          <tbody>
+            <tr><td>Select <kbd>V</kbd></td><td>Select, move, resize and edit existing annotations. Dragging empty space pans the image.</td></tr>
+            <tr><td>Text <kbd>T</kbd></td><td>Drag to draw a text box and type. See <a href="#text-boxes">Working with text boxes</a>.</td></tr>
+            <tr><td>Arrow <kbd>A</kbd></td><td>Drag from the tail to the point of the arrow.</td></tr>
+            <tr><td>Leader <kbd>L</kbd></td><td>A line with a dot at its start, for pointing at a structure from a label.</td></tr>
+            <tr><td>Dot <kbd>D</kbd></td><td>Click to place a landmark dot.</td></tr>
+            <tr><td>Badge <kbd>N</kbd></td><td>Click to place a numbered marker. Numbers count up automatically.</td></tr>
+            <tr><td>Bracket <kbd>B</kbd></td><td>Drag vertically to bracket a layer or lesion.</td></tr>
+            <tr><td>Ref line <kbd>R</kbd></td><td>Drag to draw a straight reference line.</td></tr>
+            <tr><td>Caliper <kbd>M</kbd></td><td>Drag between two points to measure. See <a href="#measurements">Measurements</a>.</td></tr>
+          </tbody>
+        </table>
+        <p>The color swatch and the <strong>W</strong> field in the toolbar set the color and stroke width for new items. <strong>Auto-label</strong> labels each retinal layer using the segmentation ground truth. <strong>Delete</strong> removes the selected item.</p>
+        <p>In the left panel, <strong>Annotations</strong> lists every item and, for the selected item, shows its properties (text, font size, rotation and color). Annotations are stored as vector data and applied when you export; they never alter the rendered image.</p>
+
+        <h2 id="text-boxes">Working with text boxes</h2>
+        <ol>
+          <li><strong>Create.</strong> Choose <strong>Text</strong>, then drag on the image to draw a box. Start typing immediately. A click without dragging creates a box of default width.</li>
+          <li><strong>Finish.</strong> Press <kbd>Esc</kbd> or click elsewhere. A box left empty is discarded.</li>
+          <li><strong>Select.</strong> Choose <strong>Select</strong> and click the box. Its handles appear only while it is selected.</li>
+          <li><strong>Move.</strong> Drag from inside the box.</li>
+          <li><strong>Resize.</strong> Drag any square handle on the corners or edges. The box never becomes smaller than its text.</li>
+          <li><strong>Rotate.</strong> Drag the round handle above the box. Hold <kbd>Shift</kbd> to snap to 15° steps. For a box at the top edge of the image the handle moves below it so that it stays reachable.</li>
+          <li><strong>Edit.</strong> Double-click the box, or click it with the Text tool, to edit the text in place.</li>
+          <li><strong>Delete.</strong> Click the small <strong>×</strong> beside the selected box, or press <kbd>Delete</kbd>.</li>
+        </ol>
+        <p>Text is wrapped inside the box and exported with the same line breaks you see on screen.</p>
+
+        <h2 id="measurements">Measurements</h2>
+        <p>With the <strong>Caliper</strong> tool, drag between two points. The distance is shown on the image in micrometers or millimeters, calculated from the scan width and depth of the current scene.</p>
+        <p>The <strong>Measurements</strong> section of the left panel lists the central foveal thickness, mean total retinal thickness, foveal pit depth and width, and the thickness of each layer. It can also draw calibrated scale bars (1 mm lateral, 200 μm axial).</p>
+
+        <h2 id="export">Export</h2>
+        <p>The left panel has two sections. <strong>Export figure</strong> in the toolbar downloads the result using the current Export settings.</p>
+        <ul>
+          <li><strong>Export</strong> offers presets (Publication, Lecture Slide, PowerPoint, A4 Print, Web Optimized, High-Res Master, Low Bandwidth) and detailed settings: scope (single B-scan or composed figure), format (PNG, TIFF, JPEG, PDF or SVG vector overlay), resolution in DPI, color mode, and whether to include annotations, caliper measurements, scale bars and an educational notice watermark.</li>
+          <li><strong>Composition</strong> arranges several scenes as panels (side by side, strips, stacks, 2 × 2 or an automatic grid) with a figure title, panel subtitles and badges, spacing, a layer legend and scale bars. The <strong>Single scan / Composed figure</strong> switch in the toolbar changes which one the viewer shows.</li>
+        </ul>
+
+        <h2 id="projects">Projects</h2>
+        <p>The <strong>Projects</strong> tab lists saved projects. Use <strong>Save</strong> in the application bar to save the current work; saved projects can be loaded, renamed, duplicated, reset or deleted. They are stored in the <code>projects/</code> folder of the machine running OCTForge. Creating or opening a project while the current one has unsaved changes asks whether to save them, discard them or cancel.</p>
+
+        <h2 id="shortcuts">Keyboard shortcuts</h2>
+        <p>On a Mac, use <kbd>Cmd</kbd> in place of <kbd>Ctrl</kbd>. Single-letter tool shortcuts work only in the Annotate workspace and are ignored while you type in a field or text box.</p>
+        <table>
+          <thead><tr><th scope="col" class="col-key">Shortcut</th><th scope="col">Action</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Ctrl</kbd> + <kbd>Z</kbd></td><td>Undo the last scene change. Annotation edits are not part of scene undo.</td></tr>
+            <tr><td><kbd>Ctrl</kbd> + <kbd>Y</kbd> or <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd></td><td>Redo.</td></tr>
+            <tr><td><kbd>V</kbd> <kbd>T</kbd> <kbd>A</kbd> <kbd>L</kbd> <kbd>D</kbd> <kbd>N</kbd> <kbd>B</kbd> <kbd>R</kbd> <kbd>M</kbd></td><td>Select, Text, Arrow, Leader, Dot, Badge, Bracket, Reference line, Caliper.</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>Finish editing text. Otherwise return to Select and clear the selection.</td></tr>
+            <tr><td><kbd>Delete</kbd> or <kbd>Backspace</kbd></td><td>Delete the selected annotation (not while editing text).</td></tr>
+            <tr><td><kbd>Ctrl</kbd> + <kbd>Enter</kbd></td><td>Finish editing text.</td></tr>
+            <tr><td><kbd>←</kbd> <kbd>→</kbd> <kbd>Home</kbd> <kbd>End</kbd></td><td>Move between workspace tabs when a tab has focus.</td></tr>
+            <tr><td><kbd>+</kbd> <kbd>−</kbd></td><td>Zoom in or out when the image view has focus.</td></tr>
+            <tr><td><kbd>F</kbd> / <kbd>1</kbd></td><td>Fit the image to the view / show it at 100% (image view focused).</td></tr>
+            <tr><td>Mouse wheel</td><td>Zoom around the pointer.</td></tr>
+            <tr><td>Drag on the image</td><td>Pan, with the Select tool active.</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="patient-data">Patient data</h2>
+        <div class="callout callout-important">
+          <strong class="callout-title">No real patient data</strong>
+          OCTForge never imports or displays real patient imagery. It only generates synthetic scans from parameters. Do not present its output as a real clinical image. It is not a diagnostic device.
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <footer class="page-footer">
+    <span>Synthetic imagery only. Not for diagnostic use.</span>
+    <span class="page-footer-links">
+      <a href="index.html">Start</a>
+      <a href="docs.html">Documentation</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+    </span>
+  </footer>
+
+  <script src="js/pages.js"></script>
+</body>
+</html>

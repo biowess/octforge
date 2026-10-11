@@ -1,0 +1,45 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Editor / IDE artifacts
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Agent / Tooling artifacts
+.agent/
+
+# Projects and user data
+# Keep .gitkeep so projects/ exists on fresh clone, ignore saved project JSONs
+projects/*.json
+!projects/.gitkeep
+backend/projects/*.json
+!backend/projects/.gitkeep
+
+# Temporary / scratch patch scripts
+patch*.py
+
+# Operating system / local scratch
+*.log
+tmp/
+
+# Doc
+documentation/
+
+references/
